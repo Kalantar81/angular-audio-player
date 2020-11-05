@@ -1,0 +1,56 @@
+<div
+  class="youtube-player-container"
+  [style.width.px] = "options ? options.playerWidth : 0">
+    <div class="youtube-player-design">
+      <div class="range">
+        <input
+            type="range"
+            min = "{{_minValueInSec}}"
+            max = "{{_maxValueInSec}}"
+            step = "{{_audioPlayerStep}}"
+            (mouseup) = "_currentTimeChanged()"
+            (mousedown) = "_grabCurrentTime()"
+            [(ngModel)] = "_currenTime"/>
+      </div>
+      <div class="controls">
+        <div class="control-buttons">
+          <svg
+           *ngIf = "_playerControlIndicators.play"
+           id="playBtn"
+           class="audio-player-control-buttons"
+           viewBox = "0 0 24 24"
+           fill = "#fff"
+           (click) = "play()">
+             <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
+          </svg>
+          <svg
+            *ngIf = "_playerControlIndicators.pause"
+            id="pauseBtn"
+            width="24"
+            height="24"
+            class="audio-player-control-buttons"
+            viewBox = "0 0 24 24"
+            fill = "#fff"
+            (click) = "pause()">
+              <path d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2zm6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2z"/>
+          </svg>
+          <svg
+            *ngIf = "_playerControlIndicators.stop"
+            id="stopBtn"
+            width="24"
+            height="24"
+            class="audio-player-control-buttons"
+            viewBox = "0 0 24 24"
+            fill = "#fff"
+            (click) = "stop()">
+              <path d="M8 6h8c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z"/>
+          </svg>
+        </div>
+        <div
+          *ngIf = "_currentTime > 0"
+          class="time-indicator">
+            {{_endTimeIndicator() ? (_currentTime | number: '1.0-2') : stop()}} / {{_maxValueInSec | number: '1.0-2'}}
+        </div>
+      </div>
+    </div>
+</div>
